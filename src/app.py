@@ -1,13 +1,8 @@
 from openai import OpenAI
-import os
-from dotenv import load_dotenv
+from contants import base_url,api_key,open_ai_key,text_embedding_api_key
 from rag import get_relevant_document_using_rag_in_langchain
+from evaluate_rag import evaluate_rag_without_llm
 
-load_dotenv()
-base_url = "https://api.ai-gateway.tigeranalytics.com"
-api_key = os.getenv("LLAMA_API_KEY")
-open_ai_key = os.getenv("OPENAI_API_KEY")
-text_embedding_api_key = os.getenv("TEXT_EMBEDDING_API_KEY")
 
 client = OpenAI(api_key=api_key,base_url=base_url)
 # question = ''
@@ -38,6 +33,8 @@ client = OpenAI(api_key=api_key,base_url=base_url)
 
 question = ''
 chat_history = []
+output_to_process = []
+output_dict = {}
 while question.lower() != 'exit':
     question = input("\n type your question...")
     if question.lower() != 'exit':
@@ -78,3 +75,13 @@ while question.lower() != 'exit':
             "content" : final_response_in_one_line,
         },
     )
+    output_dict = {
+        "user_input": question,
+        "retrieved_contexts": relevant_doc,
+        # "reference": "George Orwell",
+        "response": final_response_in_one_line
+    }
+    output_to_process.append(output_dict)
+
+
+evaluate_rag_without_llm(chat_history)
