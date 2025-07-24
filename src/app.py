@@ -1,10 +1,13 @@
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from rag import get_relevant_document_using_rag_in_langchain
 
 load_dotenv()
 base_url = "https://api.ai-gateway.tigeranalytics.com"
 api_key = os.getenv("LLAMA_API_KEY")
+open_ai_key = os.getenv("OPENAI_API_KEY")
+text_embedding_api_key = os.getenv("TEXT_EMBEDDING_API_KEY")
 
 client = OpenAI(api_key=api_key,base_url=base_url)
 # question = ''
@@ -37,6 +40,17 @@ question = ''
 chat_history = []
 while question.lower() != 'exit':
     question = input("\n type your question...")
+    if question.lower() != 'exit':
+        relevant_doc = get_relevant_document_using_rag_in_langchain(
+            question=question, 
+            open_ai_key = text_embedding_api_key, 
+            base_url=base_url
+        )
+    else : relevant_doc = ''
+    chat_history.append({
+            "role" : "user",
+            "content" : relevant_doc
+        })
     chat_history.append(
         {
             "role" : "user",
