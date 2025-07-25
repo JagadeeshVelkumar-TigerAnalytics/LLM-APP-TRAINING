@@ -1,10 +1,10 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 
 def get_relevant_document_using_rag_in_langchain(question,open_ai_key,base_url):
-    loader = PyPDFLoader(r"C:\Users\jagadeesh.velku\OneDrive - TIGER ANALYTICS INDIA CONSULTING PRIVATE LIMITED\Desktop\LLM APP Training\Books\Evolution of Computer.pdf")
+    loader = PyPDFLoader(r"C:\Users\jagadeesh.velku\OneDrive - TIGER ANALYTICS INDIA CONSULTING PRIVATE LIMITED\Desktop\LLM APP Training\books\Evolution of Computer.pdf")
 
     file = loader.load()
 

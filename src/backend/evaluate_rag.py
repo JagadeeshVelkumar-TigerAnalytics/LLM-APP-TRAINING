@@ -3,7 +3,7 @@ from ragas import evaluate
 from ragas.metrics import Faithfulness, FactualCorrectness, LLMContextRecall
 from ragas.llms import LangchainLLMWrapper
 from langchain_openai import ChatOpenAI
-from contants import base_url
+from utils.contants import base_url
 
 def evaluate_rag_without_llm(dataset):
     print("printing ragas")
@@ -50,4 +50,4 @@ dataset = [
 ]
 
 
-evaluate_rag_without_llm(dataset)
+# evaluate_rag_without_llm(dataset)
